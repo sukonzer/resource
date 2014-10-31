@@ -8,12 +8,23 @@
 
 	online.extend = function(){
 		var arg = arguments,
-			a = arg.length == 1 ? online : arg[0],
-			b = arg.length > 1 ? arg[1] : arg[0];
-		if(b == null) return a;
+			target = arg.length === 1 ? this : arg[0],
+			source = arg.length > 1 ? arg[1] : arg[0];
+		if(source === null) return target;
 		try{
-			for (var n in b) { !a.hasOwnProperty(b[n]) && ((typeof a == 'object' && (a[n] = b[n])) || (typeof a == 'function' && (a.prototype[n] = b[n]))); }
-			return a;
+			for (var p in source) {
+				if(!target.hasOwnProperty(source[p])){
+					switch(typeof(target)){
+						case 'object':
+							target[p] = source[p];
+							break;
+						case 'function':
+							target.prototype[p] = source[p];
+							break;
+					}
+				}
+			}
+			return target;
 		}catch(ex){}
 	};
 
@@ -94,7 +105,35 @@
 				browser.safari = true;
 			}
 			return browser;
-		})()
+		})(),
+		//解析url地址
+		parseUrl: function(url){
+			var a = document.createElement('a');
+			a.href = url;
+			return {
+				source: url,
+				protocol: a.protocol,
+				host: a.hostname,
+				port: a.port,
+				query: a.search,
+				params: (function(){
+					var ret = {},
+					seg = a.search.replace(/^\?/,'').split('&'),
+					len = seg.length, i = 0, s;
+					for (;i<len;i++) {
+						if (!seg[i]) { continue; }
+						s = seg[i].split('=');
+						ret[s[0]] = s[1];
+					}
+					return ret;
+				})(),
+				file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+				hash: a.hash,
+				path: a.pathname.replace(/^([^\/])/,'/$1'),
+				relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+				segments: a.pathname.replace(/^\//,'').split('/')
+			};
+		}
 
 	});
 	
