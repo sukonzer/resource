@@ -1,0 +1,39 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>后台登录</title>
+	<link rel="stylesheet" type="text/css" href="css/lib/global.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/page/login.css" media="all" />
+</head>
+<body>
+	<div class="random_box" id="J_ranBox"></div>
+	<div class="login_wrap" id="J_logWp">
+		<div id="J_tip"></div>
+		<form action="post.php" class="post_form">
+			<div class="bd">
+				<h3>后 台 登 录 系 统</h3>
+				<p>
+					<label>账户</label>
+					<input type="text" class="txt" placeholder="User" datatype="*" nullmsg="请填写账户" />
+				</p>
+				<p>
+					<label>密码</label>
+					<input type="password" placeholder="Password" datatype="*" nullmsg="请填写密码" />
+				</p>
+				<p class="verify">
+					<span>验证码</span>
+					<input type="text" class="veri_txt" datatype="*" nullmsg="请填写验证码" />
+					<img src="" alt="" />
+				</p>
+			</div>
+			<div class="ft">
+				<button type="submit">登录</button>
+			</div>
+		</form>
+	</div>
+</body>
+<script type="text/javascript" src="js/lib/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/plugin/Validform_min.js"></script>
+<script type="text/javascript" src="js/page/login.js"></script>
+</html>
