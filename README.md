@@ -1,4 +1,4 @@
-resource
+pxbird
 ========
 
-static resource
+site pxbird.com
