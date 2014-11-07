@@ -1,20 +1,25 @@
-﻿;(function(w){
+;(function(w){
+	//创建online对象
 	var online = online || {};
-	online.config = {
-		dev: 'localhost',
-		uat: 'test.localhost'
-	}
-	online.debug = new RegExp(online.config.dev,'i').test(location.host);
+	
+	//debug开关
+	online.debug = new RegExp('localhost','i').test(location.host);
 
+	//判断对象类型
+	online.typeis = function( obj ){
+	    var Class = Object.prototype.toString.call(obj).slice(8,-1).toLocaleLowerCase();
+	    return obj !== undefined && obj !== null && Class;
+	};
+	//扩展方法
 	online.extend = function(){
 		var arg = arguments,
 			target = arg.length === 1 ? this : arg[0],
 			source = arg.length > 1 ? arg[1] : arg[0];
 		if(source === null) return target;
 		try{
-			for (var p in source) {
+			for(var p in source){
 				if(!target.hasOwnProperty(source[p])){
-					switch(typeof(target)){
+					switch(this.typeis(target)){
 						case 'object':
 							target[p] = source[p];
 							break;
@@ -28,26 +33,86 @@
 		}catch(ex){}
 	};
 
+	//给online对象上扩展一些常用属性和方法
 	online.extend({
-
-		//console封装(logType为打印日志类型[ps：warn，info，time]；msg为文本信息)
-		log: function( logType , msg ){
+		//常用正则表达式
+		reg: {
+			//判断整数
+			isInt:/^-?([1-9]\d*)?\d$/,
+			//判断浮点数
+			isFloat:/^-?(([1-9]\d*)?\d(\.\d*)?|\.\d+)$/,
+			//判断是日期 (yyyy-mm-dd) 的格式
+			isDate:/^(\d{4})-(\d{1,2})-(\d{1,2})$/,
+			//判断是时间 (yyyy-mm-dd h:m:s.ms) 的格式
+			isDateTime:/^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})(\.\d+)?$/,
+			//转换成 (yyyy-mm-dd) 的格式
+			toDate:/^(\d{4})-(\d{1,2})-(\d{1,2})( \d{1,2}:\d{1,2}:\d{1,2}(\.\d+)?)?$/,
+			//转换成 (yyyy-mm-dd h:m:s.ms) 的格式
+			toDateTime:/^(\d{4})-(\d{1,2})-(\d{1,2})( (\d{1,2}):(\d{1,2}):(\d{1,2})(\.\d+)?)?$/,
+			//格式化成字符串
+			toFormatString:/([yMdhmsS])\1*/g
+		},
+		//console封装(name为要打印的名称；msg为文本信息；logType为打印日志类型[ps：warn，info，time]；)
+		log: function( name,msg,logType ){
 			if(!this.debug || !w.console){
 				return;
 			}
 			try{
-				//存在打印类型就输出到控制台
+				var logMsg;
+				if(arguments.length === 1){
+					logMsg = name;
+				}else if(arguments.length >=2){
+					logMsg = '[ '+name+' ] '+ msg;
+				}
+				logType = logType || 'log';
 				if(w.console[logType]){
-					w.console[logType](msg);
-				}else{
-					//不存在打印类型(形参个数>1，提示logType写错；形参个数===1，直接输出到控制台)
-					if(arguments.length>1){
-						w.console.log('logType undefined -→ '+'%c'+arguments[0],'color:red');
-					}else if(arguments.length === 1){
-						w.console.log(arguments[0]);
-					}
+					logMsg && w.console[logType](logMsg);
 				}
 			}catch(ex){}
+		},
+		//获取event
+		getEvent: function(event){
+	        return event || window.event;
+	    },
+	    //获取target
+	    getTarget: function(event){
+	        return event.target || event.srcElement;
+	    },
+	    //阻止默认行为
+	    preventDefault: function(event){
+	        if(event.preventDefault){
+	        	event.preventDefault();
+	        }else{
+	            event.returnValue = false;
+	        }
+	    },
+	    //阻止冒泡
+	    stopPropagation: function(event){
+	        if(event.stopPropagation){
+	        	event.stopPropagation();
+	        }else{
+	        	event.cancelBubble = true;
+	        }
+	    },
+	    //注册事件
+		addHandler: function(element, type, handler){
+			if(element.addEventListener){
+				element.addEventListener(type, handler, false);
+			}else if(element.attachEvent){
+				element.attachEvent("on" + type, handler);
+			}else{
+				element["on" + type] = handler;
+			}
+		},
+		//移除事件
+		removeHandler: function(element, type, handler){
+			if(element.removeEventListener){
+				element.removeEventListener(type, handler, false);
+			}else if(element.detachEvent){
+				element.detachEvent("on" + type, handler);
+			}else{
+				element["on" + type] = null;
+			}
 		},
 		//获取页面编码
 		charset: (function(){
@@ -57,27 +122,11 @@
 			}
 			return charset;
 		})(),
-		//获取主域名url
-		getHost: (function(){
-			if(location.origin){
-				return location.origin;
-			}
-			return location.protocol+'//'+location.host;
-		})(),
-		//获取站点所在根目录url
-		getSite: function( url ){
-			var secDir = location.href.split('/')[3] || '';
-			url = url || '';
-			if(secDir.indexOf('.') != -1 || location.hash){
-				return '/'+ url;
-			}
-			return ('/' + secDir + '/').replace('//', '/') + url;
-		},
 		//获取浏览器类型和版本
 		browser: (function(){
 			var matched,browser;
 			matched = (function() {
-				ua = navigator.userAgent.toLowerCase();
+				var ua = navigator.userAgent.toLowerCase();
 
 				var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
 					/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
@@ -109,6 +158,7 @@
 		//解析url地址
 		parseUrl: function(url){
 			var a = document.createElement('a');
+			url = url || location.href; 
 			a.href = url;
 			return {
 				source: url,
@@ -133,10 +183,96 @@
 				relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
 				segments: a.pathname.replace(/^\//,'').split('/')
 			};
-		}
+		},
+		//返回10位整型
+		toInt: function(str){
+			if( str === undefined || str === null ) return 0;
+			return parseInt(str.replace(/,/g,''),10);
+		},
+		//判断日期是 (yyyy-MM-dd) 的格式
+		isDate: function(str){
+			if( this.typeis(str) === 'string' ){
+				var arr=str.match(this.reg.isDate);
+				if(arr){
+					var y = this.toInt(arr[1]),m = this.toInt(arr[2])-1,d = this.toInt(arr[3]);
+					var t = new Date( y,m,d );
+					if ( 
+						t.getFullYear() === y 
+						&& t.getMonth() === m 
+						&& t.getDate() === d 
+					)
+						return true;
+				}
+			}
+			return false;
+		},
+		//判断日期时间是 (yyyy-MM-dd h:m:s.ms) 的格式
+		isDateTime: function(str){
+			if( this.typeis(str) === 'string' ){
+				var arr=str.match(this.reg.isDateTime);
+				if (arr){
+					var y = this.toInt(arr[1]),m = this.toInt(arr[2])-1,d = this.toInt(arr[3]);
+					var h = this.toInt(arr[4]||'')||0, min = this.toInt(arr[5]||'')||0, s = this.toInt(arr[6]||'')||0;
+					var t = new Date( y,m,d,h,min,s );
+					if (
+						t.getFullYear() === y
+						&& t.getMonth() === m
+						&& t.getDate() === d
+						&& t.getHours() === h
+						&& t.getMinutes() === min
+						&& t.getSeconds() === s
+					)
+						return true;
+				}
+			}
+			return false;
+		},
+		//格式化日期输出指定格式的字符串(yyyy-MM-dd hh:mm:ss,SSS；yyyy-MM-dd hh:mm:ss；yyyy-MM-dd)
+		toFormatString: function(date,fmt){
+			if( arguments.length <2 ) return;
+			var h={
+				'y':date.getFullYear(),
+				'M':date.getMonth()+1,
+				'd':date.getDate(),
+				'h':date.getHours(),
+				'm':date.getMinutes(),
+				's':date.getSeconds(),
+				'S':date.getMilliseconds()
+			};
+			var repeat = function(times){
+				var arr=[];
+				arr[times]='';
+				return arr.join('0');
+			}
+			var minL={'y':2};
+			for (var name in h){
+				if (h.hasOwnProperty(name)&&!(name in minL))
+					minL[name]=h[name].toString().length;
+			}
+			return fmt.replace(this.reg.toFormatString,function(a,b){
+				var t=h[b];
+				var l=Math.max(a.length,minL[b]);
+				return (repeat(l)+t).slice(-l);
+			});
+		},
+		//计算时间(纠正时区问题)
+		calcTime: function(offset){
+			var d = new Date(); 
+			return new Date( d.getTime() + (d.getTimezoneOffset() * 60000) + 3600000*offset );
+		}, 
+		//用${value}的形式匹配替换字符串
+		replaceAll: function(str,d) {
+	        return str.replace(/\$\{(\w+)\}/g, function (a, c) {
+	            if (c in d) {
+	                return d[c];
+	            } else {
+	                return a;
+	            }
+	        });
+	    }
 
 	});
-	
+
 	//把onine暴露给window
 	w.ol = online;
-})(window);
+}(window));
