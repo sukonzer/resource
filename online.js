@@ -121,7 +121,7 @@
 				charset = 'gb2312';
 			}
 			return charset;
-		})(),
+		}()),
 		//获取浏览器类型和版本
 		browser: (function(){
 			var matched,browser;
@@ -154,7 +154,52 @@
 				browser.safari = true;
 			}
 			return browser;
-		})(),
+		}()),
+		fullScreen: {
+			is: function(){
+				return document.fullscreen ||
+					   document.webkitIsFullScreen ||
+					   document.mozFullScreen ||
+					   document.msFullScreen ||
+					   false
+				;
+			},
+			enabled: function(){
+				var docNode = document.documentElement;
+				return ( 'requestFullscreen' in docNode ) ||
+					   ( 'msRequestFullscreen' in docNode ) ||
+					   ( 'webkitRequestFullScreen' in docNode ) ||
+					   ( 'mozRequestFullScreen' in docNode && document.mozFullScreenEnabled ) ||
+					   false
+				;
+			},
+			toggle: function(){
+				var docNode = document.documentElement;
+				if (
+				   !this.is()
+				){
+					if(docNode.requestFullscreen){
+						docNode.requestFullscreen();
+					}else if(docNode.msRequestFullscreen){
+						docNode.msRequestFullscreen();
+					}else if(docNode.mozRequestFullScreen){
+						docNode.mozRequestFullScreen();
+					}else if(docNode.webkitRequestFullscreen){
+						docNode.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+					}
+				}else{
+					if(document.exitFullscreen){
+						document.exitFullscreen();
+					}else if(document.msExitFullscreen){
+						document.msExitFullscreen();
+					}else if(document.mozCancelFullScreen){
+						document.mozCancelFullScreen();
+					}else if(document.webkitExitFullscreen){
+						document.webkitExitFullscreen();
+					}
+				}
+			}
+		},
 		//解析url地址
 		parseUrl: function(url){
 			var a = document.createElement('a');
