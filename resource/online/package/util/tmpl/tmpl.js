@@ -1,4 +1,5 @@
-﻿var usedRe={
+﻿;(function($,online){
+var usedRe={
 	//tmpl regexp
 	tmplMapString:/[\r\n\'\"\\]/g,
 	tmplCheckVari:/(^|[^\.])\b([a-z_$][\w$]*)/gi,
@@ -342,7 +343,7 @@ $.tmpl={
 							var arr2=tmpl[i].value.match(usedRe.tmplKey_tmpl);
 							arr2[3]=arr2[3]||'$data';
 							var def=this._checkVari(arr2[1],arr2[3]);
-							fnArr[k++]=def+'_o[_k++]=jQuery.tmpl.render('+arr2[1]+','+arr2[3]+');';
+							fnArr[k++]=def+'_o[_k++]=$.tmpl.render('+arr2[1]+','+arr2[3]+');';
 							break;
 						default:
 							break;
@@ -357,8 +358,8 @@ $.tmpl={
 		try{
 			var fn=new Function('$data','$opt',fnStr);
 		}catch (errA){
-			ol.log('tmpl._makefn','invalid source');
-			ol.log(errA);
+			online.log('tmpl._makefn','invalid source');
+			online.log(errA);
 			$.log('tmpl._makefn',fnStr);
 			return $.COMMON_DONOTHING;
 		}
@@ -470,7 +471,7 @@ $.tmpl={
 						case 'tmpl':
 							var arr2=tmpl[i].value.match(usedRe.tmplKey_tmpl);
 							arr2[3]=arr2[3]||'$data';
-							fnArr[k++]='_o[_k++]=jQuery.tmpl.renderStrict('+arr2[1]+','+arr2[3]+');';
+							fnArr[k++]='_o[_k++]=$.tmpl.renderStrict('+arr2[1]+','+arr2[3]+');';
 							break;
 						default:
 							break;
@@ -485,8 +486,8 @@ $.tmpl={
 		try{
 			var fn=new Function('$data','$opt',fnStr);
 		}catch (errA){
-			ol.log('tmpl._makeFnStrict','invalid source');
-			ol.log(errA);
+			online.log('tmpl._makeFnStrict','invalid source');
+			online.log(errA);
 			$.log('tmpl._makeFnStrict',fnStr);
 			return $.COMMON_DONOTHING;
 		}
@@ -523,7 +524,7 @@ $.tmpl={
 		try{
 			var str=t.fn(data||{},opt||{});
 		}catch(errA){
-			ol.log('tmpl.render',t.fn.toString().slice(0,200)+'...');
+			online.log('tmpl.render',t.fn.toString().slice(0,200)+'...');
 			return '';
 		}
 		return str;
@@ -539,10 +540,11 @@ $.tmpl={
 		try{
 			var str=t.fnStrict(data||{},opt||{});
 		}catch(errA){
-			ol.log('tmpl.renderStrict',t.fnStrict.toString().slice(0,200)+'...');
+			online.log('tmpl.renderStrict',t.fnStrict.toString().slice(0,200)+'...');
 			return '';
 		}
 		return str;
 	}
 
 };
+}(window.jQuery || window.Zepto,online));

@@ -1,9 +1,13 @@
+/*
+*	Author: jvan
+*	Email: 75863154@qq.com
+*/
 ;(function(w){
 	//创建online对象
 	var online = online || {};
 	
 	//debug开关
-	online.debug = new RegExp('localhost','i').test(location.host);
+	online.debug = /localhost/.test(location.host);
 
 	//判断对象类型
 	online.typeis = function( obj ){
@@ -52,7 +56,13 @@
 			//格式化成字符串
 			toFormatString:/([yMdhmsS])\1*/g
 		},
-		//console封装(name为要打印的名称；msg为文本信息；logType为打印日志类型[ps：warn，info，time]；)
+		/**
+		* @method log
+		* 打印日志
+		* @param {string} 打印对象的名称
+		* @param {string} 打印日志信息
+		* @param {string} 打印日志类型[eg：warn，info，time]
+		*/
 		log: function( name,msg,logType ){
 			if(!this.debug || !w.console){
 				return;
@@ -121,7 +131,7 @@
 				charset = 'gb2312';
 			}
 			return charset;
-		})(),
+		}()),
 		//获取浏览器类型和版本
 		browser: (function(){
 			var matched,browser;
@@ -154,7 +164,117 @@
 				browser.safari = true;
 			}
 			return browser;
-		})(),
+		}()),
+		//检测css3属性支持情况
+		getStyleName: (function(){
+			var prefixes = ['', '-ms-','-moz-', '-webkit-', '-khtml-', '-o-'],
+				reg_cap = /-([a-z])/g;
+
+			return function(css, el){
+				el = el || document.documentElement;
+				var style = el.style,test;
+				for (var i=0, l=prefixes.length; i < l; i++) {
+					test = (prefixes[i] + css).replace(reg_cap, function($0,$1){ return $1.toLocaleUpperCase();});
+					if(test in style){
+						return test;
+					}
+				}
+				return null;
+			};
+		}()),
+		//阻止滚动条滚动
+		disableScroll: function(){
+			var keys = [37, 38, 39, 40];
+			function wheel(e){
+				var e = e || window.event;
+				online.preventDefault(e);
+			}
+			function keydown(e){
+				var e = e || window.event;
+				for(var i = keys.length; i--;){
+					if (e.keyCode === keys[i]){
+						online.preventDefault(e);
+						return;
+					}
+				}
+			}
+			if(window.addEventListener){
+				window.addEventListener('DOMMouseScroll', wheel, false);
+			}
+			window.onmousewheel = document.onmousewheel = wheel;
+			document.onkeydown = keydown;	
+		},
+		//恢复滚动条滚动
+		ableScroll: function(){
+			function wheel(e){
+				var e = e || window.event;
+				online.preventDefault(e);
+			}
+			if(window.addEventListener){
+				window.addEventListener('DOMMouseScroll', wheel, false);
+			}
+			window.onmousewheel = document.onmousewheel = document.onkeydown = null;
+		},
+		//获取坐标位置
+		getClient: function(e){
+			if(e.pageX && e.pageY){
+				return{
+					x: e.pageX,
+					y: e.pageY
+				};
+			}
+
+			return{
+				x: e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft) - document.documentElement.clientLeft,
+				y: e.clientY + (document.documentElement.scrollTop || document.body.scrollTop) - document.documentElement.clientTop
+			};
+		},
+		//调用高级浏览器全屏
+		fullScreen: {
+			is: function(){
+				return document.fullscreen ||
+					   document.webkitIsFullScreen ||
+					   document.mozFullScreen ||
+					   document.msFullScreen ||
+					   false
+				;
+			},
+			enabled: function(){
+				var docNode = document.documentElement;
+				return ( 'requestFullscreen' in docNode ) ||
+					   ( 'msRequestFullscreen' in docNode ) ||
+					   ( 'webkitRequestFullScreen' in docNode ) ||
+					   ( 'mozRequestFullScreen' in docNode && document.mozFullScreenEnabled ) ||
+					   false
+				;
+			},
+			toggle: function(){
+				var docNode = document.documentElement;
+				if (
+				   !this.is()
+				){
+					if(docNode.requestFullscreen){
+						docNode.requestFullscreen();
+					}else if(docNode.msRequestFullscreen){
+						docNode.msRequestFullscreen();
+					}else if(docNode.mozRequestFullScreen){
+						docNode.mozRequestFullScreen();
+					}else if(docNode.webkitRequestFullscreen){
+						docNode.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+					}
+				}else{
+					if(document.exitFullscreen){
+						document.exitFullscreen();
+					}else if(document.msExitFullscreen){
+						document.msExitFullscreen();
+					}else if(document.mozCancelFullScreen){
+						document.mozCancelFullScreen();
+					}else if(document.webkitExitFullscreen){
+						document.webkitExitFullscreen();
+					}
+				}
+			}
+		},
 		//解析url地址
 		parseUrl: function(url){
 			var a = document.createElement('a');
@@ -274,5 +394,5 @@
 	});
 
 	//把onine暴露给window
-	w.ol = online;
+	w.online = online;
 }(window));
