@@ -903,7 +903,7 @@ var $doc = $(document),
 	__container__;
 	//创建待装容器
 	if(!__container__){
-		$bd.children(':eq(0)').before('<container>');
+		$bd.children(':eq(0)').before(ol.browser.msie ? '<diy:container></diy:container>' : '<container>');
 		w.__container__ = __container__ = $('container');
 	}
 	/**
