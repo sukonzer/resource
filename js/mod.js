@@ -1,3 +1,7 @@
+/*
+*	Author: jvan
+*	Email: 75863154@qq.com
+*/
 ;(function(w){
 	//创建online对象
 	var online = online || {};
@@ -886,3 +890,59 @@ $.tmpl={
 
 };
 }(jQuery,ol));
+;(function($){
+var $doc = $(document),
+	$win = $(window);
+	//拖拽
+	$.drag = function(container,callback,targetName){
+		var selectName;
+		container = $(container);
+		if(container.length <=0){
+			ol.log('drag对象不存在');
+			return;
+		}
+		if(typeof targetName === 'undefined'){
+			selectName = container[0].id ? '#'+container[0].id : '.'+container[0].className;
+		}else{
+			selectName = targetName;
+		}
+		$(selectName).css('cursor','move');
+		$doc.on('mousedown',selectName,function(e){
+			var ot = container.offset(),
+				disX = e.pageX - ot.left,
+				disY = e.pageY - ot.top;
+				
+			container.css('position',(ol.browser.msie && ol.browser.version === '6.0') ? 'absolute' : 'fixed');
+			$doc.on({
+				'mouseup': function(){
+					if($.type(callback) === 'function'){
+							callback(container);
+					}
+					$doc.off('mousemove').off('mouseup');
+				},
+				'mousemove': function(e){
+					var l = e.pageX - disX,
+						t = e.pageY - disY;
+						
+						if(l>$win.width()-container.width()){
+							l = $win.width()-container.width();
+						}else if(l<=0){
+							l = 0;
+						}
+						
+						if(t>$doc.height()-container.height()){
+							t = $doc.height()-container.height();
+						}else if(t<=0){
+							t = 0;
+						}
+						container.css({
+							'left': l,
+							'top': t
+						});
+				}
+			});
+		}).on('mouseleave',function(){
+			$doc.off('mousemove').off('mouseup');
+		});
+	}
+}(jQuery));
