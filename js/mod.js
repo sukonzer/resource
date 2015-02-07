@@ -56,7 +56,13 @@
 			//格式化成字符串
 			toFormatString:/([yMdhmsS])\1*/g
 		},
-		//console封装(name为要打印的名称；msg为文本信息；logType为打印日志类型[ps：warn，info，time]；)
+		/**
+		* @method log
+		* 打印日志
+		* @param {string} 打印对象的名称
+		* @param {string} 打印日志信息
+		* @param {string} 打印日志类型[eg：warn，info，time]
+		*/
 		log: function( name,msg,logType ){
 			if(!this.debug || !w.console){
 				return;
@@ -890,39 +896,55 @@ $.tmpl={
 
 };
 }(jQuery,ol));
-;(function($){
+;(function(w,$){
 var $doc = $(document),
-	$win = $(window);
-	//拖拽
-	$.drag = function(container,callback,targetName){
+	$bd = $(document.body),
+	$win = $(window),
+	__container__;
+	//创建待装容器
+	if(!__container__){
+		$bd.children(':eq(0)').before('<container>');
+		w.__container__ = __container__ = $('container');
+	}
+	/**
+	 * @method drag
+	 * 拖拽功能
+	 * @param {object} drag容器
+	 * @param {function} mouseup回调
+	 * @param {string} mousemove绑定对象名
+	 */
+	$.drag = function(container,targetName,callback){
 		var selectName;
 		container = $(container);
+		containerName = container[0].id ? '#'+container[0].id : '.'+container[0].className
 		if(container.length <=0){
 			ol.log('drag对象不存在');
 			return;
 		}
-		if(typeof targetName === 'undefined'){
-			selectName = container[0].id ? '#'+container[0].id : '.'+container[0].className;
+		if($.type(targetName) != 'string'){
+			selectName = containerName;
 		}else{
-			selectName = targetName;
+			selectName = containerName+' '+targetName;
 		}
 		$(selectName).css('cursor','move');
 		$doc.on('mousedown',selectName,function(e){
 			var ot = container.offset(),
 				disX = e.pageX - ot.left,
 				disY = e.pageY - ot.top;
-				
-			container.css('position',(ol.browser.msie && ol.browser.version === '6.0') ? 'absolute' : 'fixed');
+			
+			if(container.css('position') != 'absolute' && container.css('position') != 'fixed'){
+				container.css('position',(ol.browser.msie && ol.browser.version === '6.0') ? 'absolute' : 'fixed');
+			}
+			if($.type(callback) === 'function'){
+				callback(container);
+			}
 			$doc.on({
 				'mouseup': function(){
-					if($.type(callback) === 'function'){
-							callback(container);
-					}
 					$doc.off('mousemove').off('mouseup');
 				},
 				'mousemove': function(e){
 					var l = e.pageX - disX,
-						t = e.pageY - disY;
+						t = e.pageY - disY - $win.scrollTop();
 						
 						if(l>$win.width()-container.width()){
 							l = $win.width()-container.width();
@@ -930,8 +952,8 @@ var $doc = $(document),
 							l = 0;
 						}
 						
-						if(t>$doc.height()-container.height()){
-							t = $doc.height()-container.height();
+						if(t>$doc.height() - container.height() - $win.scrollTop()){
+							t = $doc.height()-container.height() - $win.scrollTop();
 						}else if(t<=0){
 							t = 0;
 						}
@@ -945,4 +967,4 @@ var $doc = $(document),
 			$doc.off('mousemove').off('mouseup');
 		});
 	}
-}(jQuery));
+}(window,jQuery));
