@@ -521,9 +521,9 @@ $.tmpl={
 			t.fn=this._makeFn(t.tmpl);
 		}
 		try{
-			var str=t.fn(data,opt);
+			var str=t.fn(data||{},opt||{});
 		}catch(errA){
-			ol.log('tmpl.render',t.fn.toString()/*.slice(0,200)+'...'*/);
+			ol.log('tmpl.render',t.fn.toString().slice(0,200)+'...');
 			return '';
 		}
 		return str;
@@ -534,12 +534,12 @@ $.tmpl={
 		var error=0;
 		var t=this._getCache(source);
 		if (!t.fnStrict){
-			t.fnStrict=this._makeFnStrict(tmpl);
+			t.fnStrict=this._makeFnStrict(t.tmpl);
 		}
 		try{
-			var str=t.fnStrict(data,opt);
+			var str=t.fnStrict(data||{},opt||{});
 		}catch(errA){
-			ol.log('tmpl.renderStrict',t.renderStrict.toString().slice(0,200)+'...');
+			ol.log('tmpl.renderStrict',t.fnStrict.toString().slice(0,200)+'...');
 			return '';
 		}
 		return str;
