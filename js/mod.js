@@ -932,8 +932,8 @@ var $doc = $(document),
 				disX = e.pageX - ot.left,
 				disY = e.pageY - ot.top;
 			
-			if(container.css('position') != 'absolute' && container.css('position') != 'fixed'){
-				container.css('position',(ol.browser.msie && ol.browser.version === '6.0') ? 'absolute' : 'fixed');
+			if(container.css('position') != 'absolute'){
+				container.css('position','absolute');
 			}
 			if($.type(callback) === 'function'){
 				callback(container);
@@ -944,7 +944,7 @@ var $doc = $(document),
 				},
 				'mousemove': function(e){
 					var l = e.pageX - disX,
-						t = e.pageY - disY - $win.scrollTop();
+						t = e.pageY - disY;
 						
 						if(l>$win.width()-container.width()){
 							l = $win.width()-container.width();
@@ -952,8 +952,8 @@ var $doc = $(document),
 							l = 0;
 						}
 						
-						if(t>$doc.height() - container.height() - $win.scrollTop()){
-							t = $doc.height()-container.height() - $win.scrollTop();
+						if(t>$doc.height() - container.height()){
+							t = $doc.height()-container.height();
 						}else if(t<=0){
 							t = 0;
 						}
