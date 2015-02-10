@@ -165,6 +165,56 @@
 			}
 			return browser;
 		}()),
+		//检测css3属性支持情况
+		getStyleName: (function(){
+			var prefixes = ['', '-ms-','-moz-', '-webkit-', '-khtml-', '-o-'],
+				reg_cap = /-([a-z])/g;
+
+			return function(css, el){
+				el = el || document.documentElement;
+				var style = el.style,test;
+				for (var i=0, l=prefixes.length; i < l; i++) {
+					test = (prefixes[i] + css).replace(reg_cap, function($0,$1){ return $1.toLocaleUpperCase();});
+					if(test in style){
+						return test;
+					}
+				}
+				return null;
+			};
+		}()),
+		//阻止滚动条滚动
+		disableScroll: function(){
+			var keys = [37, 38, 39, 40];
+			function wheel(e){
+				var e = e || window.event;
+				ol.preventDefault(e);
+			}
+			function keydown(e){
+				var e = e || window.event;
+				for(var i = keys.length; i--;){
+					if (e.keyCode === keys[i]){
+						ol.preventDefault(e);
+						return;
+					}
+				}
+			}
+			if(window.addEventListener){
+				window.addEventListener('DOMMouseScroll', wheel, false);
+			}
+			window.onmousewheel = document.onmousewheel = wheel;
+			document.onkeydown = keydown;	
+		},
+		//恢复滚动条滚动
+		ableScroll: function(){
+			function wheel(e){
+				var e = e || window.event;
+				ol.preventDefault(e);
+			}
+			if(window.addEventListener){
+				window.addEventListener('DOMMouseScroll', wheel, false);
+			}
+			window.onmousewheel = document.onmousewheel = document.onkeydown = null;
+		},
 		//获取坐标位置
 		getClient: function(e){
 			if(e.pageX && e.pageY){
@@ -910,8 +960,8 @@ var $doc = $(document),
 	 * @method drag
 	 * 拖拽功能
 	 * @param {object} drag容器
-	 * @param {function} mouseup回调
 	 * @param {string} mousemove绑定对象名
+	 * @param {function} mousedown回调
 	 */
 	$.drag = function(container,targetName,callback){
 		var selectName;
@@ -930,41 +980,64 @@ var $doc = $(document),
 		$doc.on('mousedown',selectName,function(e){
 			var ot = container.offset(),
 				disX = e.pageX - ot.left,
-				disY = e.pageY - ot.top;
+				disY = e.pageY - ot.top,
+				userSelect = ol.getStyleName('user-select');
 			
 			if(container.css('position') != 'absolute'){
 				container.css('position','absolute');
+			}
+			if(container.setCapture){
+				container.setCapture();
+			}else if(w.captureEvents){
+				w.captureEvents('mousemove' || 'mouseup');
 			}
 			if($.type(callback) === 'function'){
 				callback(container);
 			}
 			$doc.on({
 				'mouseup': function(){
+					if(container.releaseCapture){
+						container.releaseCapture();
+					}else if(w.releaseEvents){
+						w.releaseEvents('mousemove' || 'mouseup');
+					}
+					//打开文本选中
+					if($.type(userSelect) === 'string'){
+						document.documentElement.style[userSelect] = '';
+					}else{
+						document.unselectable = "off";
+						document.onselectstart = null;
+					}
 					$doc.off('mousemove').off('mouseup');
 				},
 				'mousemove': function(e){
 					var l = e.pageX - disX,
 						t = e.pageY - disY;
-						
-						if(l>$win.width()-container.width()){
-							l = $win.width()-container.width();
-						}else if(l<=0){
-							l = 0;
-						}
-						
-						if(t>$doc.height() - container.height()){
-							t = $doc.height()-container.height();
-						}else if(t<=0){
-							t = 0;
-						}
-						container.css({
-							'left': l,
-							'top': t
-						});
+					//禁用文本选中
+					if($.type(userSelect) === 'string'){
+						document.documentElement.style[userSelect] = 'none';
+					}else{
+						document.unselectable = "on";
+						document.onselectstart = function(){return false;};
+					}
+					
+					if(l>$win.width()-container.width()){
+						l = $win.width()-container.width();
+					}else if(l<=0){
+						l = 0;
+					}
+					
+					if(t>$doc.height() - container.height()){
+						t = $doc.height()-container.height();
+					}else if(t<=0){
+						t = 0;
+					}
+					container.css({
+						'left': l,
+						'top': t
+					});
 				}
 			});
-		}).on('mouseleave',function(){
-			$doc.off('mousemove').off('mouseup');
 		});
 	}
 }(window,jQuery));
