@@ -7,7 +7,7 @@
 	var online = online || {};
 	
 	//debug开关
-	online.debug = new RegExp('localhost','i').test(location.host);
+	online.debug = /localhost/.test(location.host);
 
 	//判断对象类型
 	online.typeis = function( obj ){
