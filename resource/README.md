@@ -22,23 +22,36 @@ npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-co
 ```
 
 sass的编译 (gulp-ruby-sass)
+
 自动添加css前缀 (gulp-autoprefixer)
+
 压缩css (gulp-minify-css)
+
 js代码校验 (gulp-jshint)
+
 合并js文件 (gulp-concat)
+
 压缩js代码 (gulp-uglify)
+
 压缩图片 (gulp-imagemin)
+
 自动刷新页面 (gulp-livereload)
+
 图片缓存,只有图片替换了才压缩 (gulp-cache)
+
 更改提醒 (gulp-notify)
+
 清除文件 (del)
+
 [更多插件](http://gratimax.net/search-gulp-plugins/)
 
 
 在完成上面的配置之后,再配置gulpfile.js后就可以开始使用gulp构建了.
 
 创建目录符号链接添加至右键
+
 1.先将node_modules安装至固定位置(不更改的位置)
+
 2.把下面的存到一个reg的文件中,启用即可添加到右键
 ```
 [HKEY_CLASSES_ROOT\Directory\Background\shell\ResOnline]
