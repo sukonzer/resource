@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>后台登录</title>
-	<link rel="stylesheet" type="text/css" href="css/lib/global.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="css/page/login.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="resource/css/home/bootstrap.min.css?releaseno=PRO_6284185028634_03" media="all" />
+	<link rel="stylesheet" type="text/css" href="resource/css/home/login.min.css?releaseno=PRO_6284185028634_03" media="all" />
 </head>
 <body>
 	<div class="random_box" id="J_ranBox"></div>
@@ -33,7 +33,28 @@
 		</form>
 	</div>
 </body>
-<script type="text/javascript" src="js/lib/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="js/plugin/Validform_min.js"></script>
-<script type="text/javascript" src="js/page/login.js"></script>
+<!-- 页面级调用 -->
+	<script type="text/javascript">
+	function loaderCallback(jsList, url){
+		return $LAB.script(jsList['jquery']).wait()
+			.script(url('mod.min.js')).wait()
+			.script(url('Validform.min.js')).wait()
+			.script(url('login.min.js'))
+	}
+	</script>
+	<!-- 页面级调用/ -->
+	<!-- 底部通用配置(可include进foot中) -->
+	<script type="text/javascript" src="resource/online/home/LAB.min.js"></script>
+	<script type="text/javascript">
+	var releaseNo = '?releaseno=PRO_6284185028634_03' + (new Date()).getDay(),
+			releaseUrl = 'resource/online/home/',
+			getUrl = function(name, charset){
+				return { src: releaseUrl + name + releaseNo, charset: charset || 'utf-8' };
+			},
+			jsList = {
+				jquery: { src: 'resource/online/home/jquery.min.js' + releaseNo, charset: 'utf-8' }
+			};
+	(typeof loaderCallback != 'undefined') && (loaderCallback(jsList, getUrl));
+	</script>
+	<!-- 底部通用配置/ -->
 </html>
