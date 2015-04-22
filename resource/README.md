@@ -1,82 +1,89 @@
->pxbirdÕ¾µã×ÊÔ´ÎÄ¼ş ¿ª·¢Ö¸ÄÏ.
+#pxbirdç«™ç‚¹èµ„æºæ–‡ä»¶ å¼€å‘æŒ‡å—.
 
-¿ª·¢»·¾³ÅäÖÃ:
+å¼€å‘ç¯å¢ƒé…ç½®:
 
-°²×° [nodejs](http://nodejs.org)
+å®‰è£… [nodejs](http://nodejs.org)
 
-ÔÚ°²×°Íê³É `nodejs` Ö®ºó, ´ò¿ª `ÃüÁîÌáÊ¾·û`, Ö´ĞĞÏÂÁĞ²Ù×÷
+åœ¨å®‰è£…å®Œæˆ `nodejs` ä¹‹å, æ‰“å¼€ `å‘½ä»¤æç¤ºç¬¦`, æ‰§è¡Œä¸‹åˆ—æ“ä½œ
 
-°²×° `gulp`
+å®‰è£… `gulp`
 ```
-npm install gulp -g(-gÈ«¾Ö°²×°,ÆäËüÏîÄ¿Ò²¿ÉÒÔÊ¹ÓÃ)
+npm install gulp -g(-gå…¨å±€å®‰è£…,å…¶å®ƒé¡¹ç›®ä¹Ÿå¯ä»¥ä½¿ç”¨)
 ```
 
-ÏÈÅäÖÃpackage.json,È»ºóÔÚ¿ª·¢¸ùÄ¿Â¼ÔÙ°²×°Ò»´Î
+å…ˆé…ç½®package.json,ç„¶ååœ¨å¼€å‘æ ¹ç›®å½•å†å®‰è£…ä¸€æ¬¡
 ```
 npm install gulp --save-dev
 ```
 
-°²×°Gulp²å¼ş
+å®‰è£…Gulpæ’ä»¶
 ```
 npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
 ```
 
-sassµÄ±àÒë (gulp-ruby-sass)
-×Ô¶¯Ìí¼ÓcssÇ°×º (gulp-autoprefixer)
-Ñ¹Ëõcss (gulp-minify-css)
-js´úÂëĞ£Ñé (gulp-jshint)
-ºÏ²¢jsÎÄ¼ş (gulp-concat)
-Ñ¹Ëõjs´úÂë (gulp-uglify)
-Ñ¹ËõÍ¼Æ¬ (gulp-imagemin)
-×Ô¶¯Ë¢ĞÂÒ³Ãæ (gulp-livereload)
-Í¼Æ¬»º´æ,Ö»ÓĞÍ¼Æ¬Ìæ»»ÁË²ÅÑ¹Ëõ (gulp-cache)
-¸ü¸ÄÌáĞÑ (gulp-notify)
-Çå³ıÎÄ¼ş (del)
-¸ü¶à²å¼ş,·ÃÎÊhttp://gratimax.net/search-gulp-plugins/
+sassçš„ç¼–è¯‘ (gulp-ruby-sass)
+è‡ªåŠ¨æ·»åŠ csså‰ç¼€ (gulp-autoprefixer)
+å‹ç¼©css (gulp-minify-css)
+jsä»£ç æ ¡éªŒ (gulp-jshint)
+åˆå¹¶jsæ–‡ä»¶ (gulp-concat)
+å‹ç¼©jsä»£ç  (gulp-uglify)
+å‹ç¼©å›¾ç‰‡ (gulp-imagemin)
+è‡ªåŠ¨åˆ·æ–°é¡µé¢ (gulp-livereload)
+å›¾ç‰‡ç¼“å­˜,åªæœ‰å›¾ç‰‡æ›¿æ¢äº†æ‰å‹ç¼© (gulp-cache)
+æ›´æ”¹æé†’ (gulp-notify)
+æ¸…é™¤æ–‡ä»¶ (del)
+[æ›´å¤šæ’ä»¶](http://gratimax.net/search-gulp-plugins/)
 
 
-ÔÚÍê³ÉÉÏÃæµÄÅäÖÃÖ®ºó,ÔÙÅäÖÃgulpfile.jsºó¾Í¿ÉÒÔ¿ªÊ¼Ê¹ÓÃgulp¹¹½¨ÁË.
+åœ¨å®Œæˆä¸Šé¢çš„é…ç½®ä¹‹å,å†é…ç½®gulpfile.jsåå°±å¯ä»¥å¼€å§‹ä½¿ç”¨gulpæ„å»ºäº†.
 
-´´½¨Ä¿Â¼·ûºÅÁ´½ÓÌí¼ÓÖÁÓÒ¼ü
-1.ÏÈ½«node_modules°²×°ÖÁ¹Ì¶¨Î»ÖÃ(²»¸ü¸ÄµÄÎ»ÖÃ)
-2.°ÑÏÂÃæµÄ´æµ½Ò»¸öregµÄÎÄ¼şÖĞ,ÆôÓÃ¼´¿ÉÌí¼Óµ½ÓÒ¼ü
+åˆ›å»ºç›®å½•ç¬¦å·é“¾æ¥æ·»åŠ è‡³å³é”®
+1.å…ˆå°†node_moduleså®‰è£…è‡³å›ºå®šä½ç½®(ä¸æ›´æ”¹çš„ä½ç½®)
+2.æŠŠä¸‹é¢çš„å­˜åˆ°ä¸€ä¸ªregçš„æ–‡ä»¶ä¸­,å¯ç”¨å³å¯æ·»åŠ åˆ°å³é”®
+```
 [HKEY_CLASSES_ROOT\Directory\Background\shell\ResOnline]
 "Extended"=""
+```
 
+```
 [HKEY_CLASSES_ROOT\Directory\Background\shell\ResOnline\command]
 @="cmd.exe /s /c pushd \"%V\" && mklink /D node_modules \"E:\\npm\\ResOnline\\node_modules\""
+```
 
-Ñ¹ËõÖ¸ÁîÌí¼ÓÖÁÓÒ¼ü
+å‹ç¼©æŒ‡ä»¤æ·»åŠ è‡³å³é”®
+```
 [HKEY_CLASSES_ROOT\Directory\Background\shell\gulp]
 "Extended"=""
-
+```
+```
 [HKEY_CLASSES_ROOT\Directory\Background\shell\gulp\command]
 @="cmd.exe /s /c pushd \"%V\" && gulp --force && pause"
+```
 
 
-Ä£¿é¿ª·¢.
+æ¨¡å—å¼€å‘.
 
-Ä¿Â¼½á¹¹£º
-	--css			    [cssÎÄ¼ş¼Ğ]
-		--dependencies		Ç¿ÒÀÀµ
-		--package     		¿ª·¢ÓÃ
-			--util 		×é¼ş¼¯
-			--public	Ò³Ãæ¼¶¹«¹²Ä£¿é
-			--action	Ò³Ãæ¼¶µ÷ÓÃ
-		--build			ºÏ²¢
-		--home        		ÏßÉÏÊ¹ÓÃ
-	--image		      	    [imageÎÄ¼ş¼Ğ]
-		--package     		¿ª·¢ÓÃ
-		--home        		ÏßÉÏÊ¹ÓÃ
-	--online		    [jsµÄonlineÎÄ¼ş¼Ğ]
-		--dependencies		Ç¿ÒÀÀµ
-		--package	    	¿ª·¢°ü£¬ÏîÄ¿ËùÔÚÄ¿Â¼(°üº¬ËùÓĞÔ´´úÂë)
-			--config	ÅäÖÃÎÄ¼ş
-			--service	ÒµÎñ²ã
-			--util		×é¼ş¼¯
-			--data		Êı¾İ²ã
-			--template	Ä£°å
-			--public	Ò³Ãæ¼¶¹«¹²Ä£¿é
-			--action	¿ØÖÆÆ÷(ËùÓĞÒ³Ãæ¼¶jsµ÷ÓÃ¿é)
-		--build			ºÏ²¢
-		--home        		ÏßÉÏÊ¹ÓÃ
+ç›®å½•ç»“æ„ï¼š
+	--css			    [cssæ–‡ä»¶å¤¹]
+		--dependencies		å¼ºä¾èµ–
+		--package     		å¼€å‘ç”¨
+			--util 		ç»„ä»¶é›†
+			--public	é¡µé¢çº§å…¬å…±æ¨¡å—
+			--action	é¡µé¢çº§è°ƒç”¨
+		--build			åˆå¹¶
+		--home        		çº¿ä¸Šä½¿ç”¨
+	--image		      	    [imageæ–‡ä»¶å¤¹]
+		--package     		å¼€å‘ç”¨
+		--home        		çº¿ä¸Šä½¿ç”¨
+	--online		    [jsçš„onlineæ–‡ä»¶å¤¹]
+		--dependencies		å¼ºä¾èµ–
+		--package	    	å¼€å‘åŒ…ï¼Œé¡¹ç›®æ‰€åœ¨ç›®å½•(åŒ…å«æ‰€æœ‰æºä»£ç )
+			--config	é…ç½®æ–‡ä»¶
+			--service	ä¸šåŠ¡å±‚
+			--util		ç»„ä»¶é›†
+			--data		æ•°æ®å±‚
+			--template	æ¨¡æ¿
+			--public	é¡µé¢çº§å…¬å…±æ¨¡å—
+			--action	æ§åˆ¶å™¨(æ‰€æœ‰é¡µé¢çº§jsè°ƒç”¨å—)
+		--build			åˆå¹¶
+		--home        		çº¿ä¸Šä½¿ç”¨
