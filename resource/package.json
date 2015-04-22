@@ -1,7 +1,8 @@
 ﻿{
-	"name": "E-commerce",
+	"name": "pxbird",
 	"version": "1.0.0",
-	"description": "E-commerce资源文件",
+	"description": "pxbird资源文件",
+	"repository": "https://github.com/sukonzer/resource",
 	"contributors": [{
 		"name": "sukonzer",
 		"email": "sukonzer@gmail.com"
