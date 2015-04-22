@@ -77,6 +77,7 @@ js代码校验 (gulp-jshint)
 模块开发.
 
 目录结构：
+```
 	--css			    [css文件夹]
 		--dependencies		强依赖
 		--package     		开发用
@@ -100,3 +101,4 @@ js代码校验 (gulp-jshint)
 			--action	控制器(所有页面级js调用块)
 		--build			合并
 		--home        		线上使用
+```
