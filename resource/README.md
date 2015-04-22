@@ -1,4 +1,4 @@
->E-commerce站点资源文件 开发指南.
+>pxbird站点资源文件 开发指南.
 
 开发环境配置:
 
@@ -40,11 +40,11 @@ js代码校验 (gulp-jshint)
 创建目录符号链接添加至右键
 1.先将node_modules安装至固定位置(不更改的位置)
 2.把下面的存到一个reg的文件中,启用即可添加到右键
-[HKEY_CLASSES_ROOT\Directory\Background\shell\E-Online]
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ResOnline]
 "Extended"=""
 
-[HKEY_CLASSES_ROOT\Directory\Background\shell\E-Online\command]
-@="cmd.exe /s /c pushd \"%V\" && mklink /D node_modules \"E:\\npm\\E-online\\node_modules\""
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ResOnline\command]
+@="cmd.exe /s /c pushd \"%V\" && mklink /D node_modules \"E:\\npm\\ResOnline\\node_modules\""
 
 压缩指令添加至右键
 [HKEY_CLASSES_ROOT\Directory\Background\shell\gulp]
