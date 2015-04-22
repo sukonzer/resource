@@ -1,7 +1,3 @@
-/*
-*	Author: jvan
-*	Email: 75863154@qq.com
-*/
 ;(function(w){
 	//创建online对象
 	var online = online || {};
@@ -56,13 +52,7 @@
 			//格式化成字符串
 			toFormatString:/([yMdhmsS])\1*/g
 		},
-		/**
-		* @method log
-		* 打印日志
-		* @param {string} 打印对象的名称
-		* @param {string} 打印日志信息
-		* @param {string} 打印日志类型[eg：warn，info，time]
-		*/
+		//console封装(name为要打印的名称；msg为文本信息；logType为打印日志类型[ps：warn，info，time]；)
 		log: function( name,msg,logType ){
 			if(!this.debug || !w.console){
 				return;
@@ -165,11 +155,9 @@
 			}
 			return browser;
 		}()),
-		//检测css3属性支持情况
 		getStyleName: (function(){
 			var prefixes = ['', '-ms-','-moz-', '-webkit-', '-khtml-', '-o-'],
 				reg_cap = /-([a-z])/g;
-
 			return function(css, el){
 				el = el || document.documentElement;
 				var style = el.style,test;
@@ -182,7 +170,6 @@
 				return null;
 			};
 		}()),
-		//阻止滚动条滚动
 		disableScroll: function(){
 			var keys = [37, 38, 39, 40];
 			function wheel(e){
@@ -204,7 +191,6 @@
 			window.onmousewheel = document.onmousewheel = wheel;
 			document.onkeydown = keydown;	
 		},
-		//恢复滚动条滚动
 		ableScroll: function(){
 			function wheel(e){
 				var e = e || window.event;
@@ -215,7 +201,6 @@
 			}
 			window.onmousewheel = document.onmousewheel = document.onkeydown = null;
 		},
-		//获取坐标位置
 		getClient: function(e){
 			if(e.pageX && e.pageY){
 				return{
@@ -223,13 +208,11 @@
 					y: e.pageY
 				};
 			}
-
 			return{
 				x: e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft) - document.documentElement.clientLeft,
 				y: e.clientY + (document.documentElement.scrollTop || document.body.scrollTop) - document.documentElement.clientTop
 			};
 		},
-		//调用高级浏览器全屏
 		fullScreen: {
 			is: function(){
 				return document.fullscreen ||
