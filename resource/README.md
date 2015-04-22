@@ -78,27 +78,27 @@ js代码校验 (gulp-jshint)
 
 目录结构：
 ```
-	--css			    [css文件夹]
-		--dependencies		强依赖
-		--package     		开发用
-			--util 		组件集
-			--public	页面级公共模块
-			--action	页面级调用
-		--build			合并
-		--home        		线上使用
-	--image		      	    [image文件夹]
-		--package     		开发用
-		--home        		线上使用
-	--online		    [js的online文件夹]
-		--dependencies		强依赖
-		--package	    	开发包，项目所在目录(包含所有源代码)
-			--config	配置文件
-			--service	业务层
-			--util		组件集
-			--data		数据层
-			--template	模板
-			--public	页面级公共模块
-			--action	控制器(所有页面级js调用块)
-		--build			合并
-		--home        		线上使用
+--css			    [css文件夹]
+	--dependencies		强依赖
+	--package     		开发用
+		--util 		组件集
+		--public	页面级公共模块
+		--action	页面级调用
+	--build			合并
+	--home        		线上使用
+--image		      	    [image文件夹]
+	--package     		开发用
+	--home        		线上使用
+--online		    [js的online文件夹]
+	--dependencies		强依赖
+	--package	    	开发包，项目所在目录(包含所有源代码)
+		--config	配置文件
+		--service	业务层
+		--util		组件集
+		--data		数据层
+		--template	模板
+		--public	页面级公共模块
+		--action	控制器(所有页面级js调用块)
+	--build			合并
+	--home        		线上使用
 ```
