@@ -43,7 +43,7 @@ js代码校验 (gulp-jshint)
 
 清除文件 (del)
 
-[更多插件](http://gratimax.net/search-gulp-plugins/)
+[更多插件](http://gulpjs.com/plugins/)
 
 
 在完成上面的配置之后,再配置gulpfile.js后就可以开始使用gulp构建了.
