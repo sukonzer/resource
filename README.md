@@ -1,4 +1,4 @@
 resource
 ========
 
-static resource
+公用的`前端构建`,可用于快速构建前端资源
