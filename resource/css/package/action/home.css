@@ -1,0 +1,21 @@
+﻿@charset "utf-8";
+/**
+ * Autho: sukonzer | sukonzer@gmail.com
+ * Description: Home
+ **/
+.header{padding:10px 0;border-bottom:1px solid #D2CFCF;}
+.col-xs-3{border-right:1px solid #D2CFCF;}
+.panel-l .list-group{margin-top:15px;}
+
+.list-group-item.active, 
+.list-group-item.active:focus, 
+.list-group-item.active:hover{
+	text-shadow: 0 -1px 0 #828384;
+  background-image: -webkit-linear-gradient(top, #A5A5A5 0%, #565656 100%);
+  background-image: -o-linear-gradient(top, #A5A5A5 0%, #565656 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#A5A5A5), to(#565656));
+  background-image: linear-gradient(to bottom, #A5A5A5 0%, #565656 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A5A5A5', endColorstr='#565656', GradientType=0);
+  border-color: #828384;
+}
