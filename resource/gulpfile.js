@@ -81,12 +81,12 @@ gulp.task('clean', function(cb) {
 	'css/home/*',
 	'online/build/*',
 	'online/home/*',
-	//'image/home/*'
+	'image/home/*'
 	], cb)
 });
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('copy', 'css', 'js');
+    gulp.start('copy', 'css', 'js', 'image');
 });
 // Watch
 gulp.task('watch', function() {
