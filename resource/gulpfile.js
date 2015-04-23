@@ -35,7 +35,9 @@ gulp.task('css', function() {
 			'css/package/bootstrap-3.3.4.src.css',
 			'css/package/bootstrap-theme-3.3.4.src.css'
 		],
-		'login.css':'css/package/action/login.css'
+		'login.css':'css/package/action/login.css',
+		'home.css':'css/package/action/home.css',
+		'list.css':'css/package/action/list.css'
 	};
 	for(var p in config){
 		task(config[p],p);
@@ -61,7 +63,9 @@ gulp.task('js', function() {
 			'online/online.js',
 			'online/package/util/tmpl/tmpl.js'
 		],
-		'login.js':'online/package/action/login.js'
+		'login.js':'online/package/action/login.js',
+		'home.js':'online/package/action/home.js',
+		'list.js':'online/package/action/list.js'
 	};
 	for(var p in config){
 		task(config[p],p);
