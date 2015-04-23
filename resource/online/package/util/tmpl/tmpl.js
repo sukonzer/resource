@@ -1,4 +1,11 @@
 ﻿;(function($,online){
+//创建待装容器
+var __container__;
+if(!__container__){
+	$(document.body).children(':eq(0)').before(online.browser.msie ? '<diy:container></diy:container>' : '<container>');
+	window.__container__ = __container__ = $('container');
+}
+
 var usedRe={
 	//tmpl regexp
 	tmplMapString:/[\r\n\'\"\\]/g,

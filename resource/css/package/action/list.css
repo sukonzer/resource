@@ -4,3 +4,5 @@
  * Description: List
  **/
 .container-fluid{margin-top:15px;}
+.container-fluid .table th,.container-fluid .table td{vertical-align:middle;}
+.glyphicon{margin-right:5px;}

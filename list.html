@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>List</title>
+	<link rel="stylesheet" type="text/css" href="resource/css/home/bootstrap.min.css?releaseno=PRO_6284185028634_03" media="all" />
+	<link rel="stylesheet" type="text/css" href="resource/css/home/list.min.css?releaseno=PRO_6284185028634_03" media="all" />
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table class="table">
+			  <caption><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>New Add</button></caption>
+			  <thead>
+				<tr>
+				  <th><input type="checkbox" /></th>
+				  <th>缩略图</th>
+				  <th>客户</th>
+				  <th>美术</th>
+				  <th>时间</th>
+				  <th>操作</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row"><input type="checkbox" /></th>
+				  <td><img src="resource/image/home/case_thumbnails_Pehchaolin.jpg" width="50" height="50" alt="" /></td>
+				  <td>百雀羚</td>
+				  <td>Eseen</td>
+				  <td>2012.09</td>
+				  <td><a href="javascript:;" class="glyphicon glyphicon-pencil" id="a"></a><a href="javascript:;" class="glyphicon glyphicon-remove"></a></td>
+				</tr>
+				<tr>
+				  <th scope="row"><input type="checkbox" /></th>
+				  <td><img src="resource/image/home/case_thumbnails_McD.jpg" width="50" height="50" alt="" /></td>
+				  <td>麦当劳(中国)</td>
+				  <td>Eseen</td>
+				  <td>2012.12</td>
+				  <td><a href="javascript:;" class="glyphicon glyphicon-pencil"></a><a href="javascript:;" class="glyphicon glyphicon-remove"></a></td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+</body>
+<!-- 页面级调用 -->
+	<script type="text/javascript">
+	function loaderCallback(jsList, url){
+		return $LAB.script(jsList['jquery']).wait()
+			.script(url('mod.min.js')).wait()
+			.script(url('Validform.min.js')).wait()
+			.script(url('list.min.js'))
+	}
+	</script>
+	<!-- 页面级调用/ -->
+	<!-- 底部通用配置(可include进foot中) -->
+	<script type="text/javascript" src="resource/online/home/LAB.min.js"></script>
+	<script type="text/javascript">
+	var releaseNo = '?releaseno=PRO_6284185028634_03' + (new Date()).getDay(),
+			releaseUrl = 'resource/online/home/',
+			getUrl = function(name, charset){
+				return { src: releaseUrl + name + releaseNo, charset: charset || 'utf-8' };
+			},
+			jsList = {
+				jquery: { src: 'resource/online/home/jquery.min.js' + releaseNo, charset: 'utf-8' }
+			};
+	(typeof loaderCallback != 'undefined') && (loaderCallback(jsList, getUrl));
+	</script>
+	<!-- 底部通用配置/ -->
+</html>
