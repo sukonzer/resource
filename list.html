@@ -1,0 +1,110 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>List</title>
+	<link rel="stylesheet" type="text/css" href="resource/css/home/bootstrap.min.css?releaseno=PRO_6284185028634_03" media="all" />
+	<link rel="stylesheet" type="text/css" href="resource/css/home/list.min.css?releaseno=PRO_6284185028634_03" media="all" />
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table class="table table-hover">
+			  <caption><button type="button" class="btn btn-success" onclick="edit({});"><span class="glyphicon glyphicon-plus"></span>New Add</button></caption>
+			  <thead>
+				<tr>
+				  <th scope="controll"><input type="checkbox" /></th>
+				  <th>缩略图</th>
+				  <th>客户</th>
+				  <th>美术</th>
+				  <th>时间</th>
+				  <th>操作</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row"><input type="checkbox" /></th>
+				  <td><img src="resource/image/home/case_thumbnails_Pehchaolin.jpg" width="50" height="50" alt="" /></td>
+				  <td>百雀羚</td>
+				  <td>Eseen</td>
+				  <td>2012.09</td>
+				  <td><a href="javascript:edit({});" class="glyphicon glyphicon-pencil"></a><a href="javascript:;" class="glyphicon glyphicon-remove" aria-action="del"></a></td>
+				</tr>
+				<tr>
+				  <th scope="row"><input type="checkbox" /></th>
+				  <td><img src="resource/image/home/case_thumbnails_McD.jpg" width="50" height="50" alt="" /></td>
+				  <td>麦当劳(中国)</td>
+				  <td>Eseen</td>
+				  <td>2012.12</td>
+				  <td><a href="javascript:edit({});" class="glyphicon glyphicon-pencil"></a><a href="javascript:;" class="glyphicon glyphicon-remove" aria-action="del"></a></td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
+		<script type="text/list-tmpl" id="ListTmpl">
+			<form class="form-horizontal" method="POST" action="?">
+				<div class="form-group">
+					<label for="Customer" class="col-sm-4 control-label">Customer</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control input-sm" id="Customer" placeholder="Customer" value="${Customer || ''}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="Agency" class="col-sm-4 control-label">Agency</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control input-sm" id="Agency" placeholder="Agency" value="${Agency || ''}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="CreativeDirector" class="col-sm-4 control-label">CreativeDirector</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control input-sm" id="CreativeDirector" placeholder="CreativeDirector" value="${CreativeDirector || ''}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="ArtDirector" class="col-sm-4 control-label">ArtDirector</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control input-sm" id="ArtDirector" placeholder="ArtDirector" value="${ArtDirector || ''}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="WorkTime" class="col-sm-4 control-label">WorkTime</label>
+					<div class="col-sm-8">
+						<input type="date" class="form-control input-sm" id="WorkTime" placeholder="WorkTime" value="${WorkTime || ''}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="FileInput" class="col-sm-4 control-label">FileInput</label>
+					<div class="col-sm-8">
+						<input type="file" class="form-control input-sm" id="FileInput">
+					</div>
+				</div>
+			</form>
+		</script>
+	</div>
+</body>
+<!-- 页面级调用 -->
+	<script type="text/javascript">
+	function loaderCallback(jsList, url){
+		return $LAB.script(jsList['jquery']).wait()
+			.script(url('mod.min.js')).wait()
+			.script(url('Validform.min.js')).wait()
+			.script(url('list.min.js'))
+	}
+	</script>
+	<!-- 页面级调用/ -->
+	<!-- 底部通用配置(可include进foot中) -->
+	<script type="text/javascript" src="resource/online/home/LAB.min.js"></script>
+	<script type="text/javascript">
+	var releaseNo = '?releaseno=PRO_6284185028634_03' + (new Date()).getDay(),
+			releaseUrl = 'resource/online/home/',
+			getUrl = function(name, charset){
+				return { src: releaseUrl + name + releaseNo, charset: charset || 'utf-8' };
+			},
+			jsList = {
+				jquery: { src: 'resource/online/home/jquery.min.js' + releaseNo, charset: 'utf-8' }
+			};
+	(typeof loaderCallback != 'undefined') && (loaderCallback(jsList, getUrl));
+	</script>
+	<!-- 底部通用配置/ -->
+</html>

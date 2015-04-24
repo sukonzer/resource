@@ -1,6 +1,11 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 /**
  * Autho: sukonzer | sukonzer@gmail.com
  * Description: List
  **/
 .container-fluid{margin-top:15px;}
+.container-fluid .table th,.container-fluid .table td{vertical-align:middle;}
+.glyphicon{margin-right:5px;}
+.table-hover tr td:last-child .glyphicon{visibility:hidden;}
+.table-hover tr:hover td:last-child .glyphicon,
+.table-hover tr.active td:last-child .glyphicon{visibility:visible;}

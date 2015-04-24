@@ -1,0 +1,11 @@
+﻿/*!
+ * dialog
+ * 模态
+ * 
+ */
+.popup{border:1px solid #D2D2D2;background-color:#FFF;}
+.popup .close{margin:4px 8px 0 0;}
+.popup .hd{border-bottom:1px solid #D2D2D2;padding:5px 10px;}
+.popup .bd{padding:10px;}
+.popup .ft{border-top:1px solid #D2D2D2;padding:5px 10px;text-align:right;}
+.popup .ft>a:last-child{margin-left:10px;}

@@ -21,11 +21,11 @@
 			isHide: true,
 			zIndex: 999,
 			tmpl: '<div class="popup">'+
-				'{{if close}}<span class="close J_popclose" title="关闭">x</span>{{/if}}'+
+				'{{if close}}<button type="button" class="close" title="关闭" aria-hidden="true">&times;</button>{{/if}}'+
 				'{{if title}}<div class="hd">${title}</div>{{/if}}'+
 				'<div class="bd">${msg}</div>'+
 				'{{if ok || cancel}}<div class="ft">'+
-					'{{if ok}}<a href="javascript:;" class="ok J_popok">${ok}</a>{{/if}}{{if cancel}}<a href="javascript:;" class="cancel J_popcancel">${cancel}</a>{{/if}}'+
+					'{{if ok}}<a href="javascript:;" class="btn btn-primary" aria-label="ok">${ok}</a>{{/if}}{{if cancel}}<a href="javascript:;" class="btn btn-default" aria-label="cancel">${cancel}</a>{{/if}}'+
 				'</div>{{/if}}'+
 			'</div>',
 			loadedCallback: null,
@@ -43,20 +43,20 @@
 			if(!__maskLayer__){
 				__container__.append('<div id="Pop__maskLayer__"></div>');
 				this.mask = __maskLayer__ = $('#Pop__maskLayer__');
-				this.mask.css({'position':'absolute','top':0,'left':0,'background-color':'#000','opacity':_this.opacity,'width':$win.width(),'height':$doc.height()});
+				this.mask.css({'position':'absolute','top':0,'left':0,'background-color':'#000','z-index':_this.zIndex-2,'opacity':_this.opacity,'width':$win.width(),'height':$doc.height()});
 			}else{
 				this.mask.show();
 			}
 			this.mask.after('<div id="Pop__container__" style="width:'+_this.width+';z-index:'+_this.zIndex+'"></div>');
 			this.container = $('#Pop__container__');
 			this.container.html($.tmpl.render(this.tmpl,this));
+			$.type(this.loadedCallback) === 'function' && this.loadedCallback.call(this,this.container);
 			this.container.css({
 				'position': 'absolute',
 				'left': ($win.width()-this.container.width())/2,
 				'top': ($win.height()-this.container.height())/2
 			});
 			
-			$.type(this.loadedCallback) === 'function' && this.loadedCallback.call(this,this.container);
 			//是否开启拖拽
 			if(this.drag){
 				$.drag(this.container,'.hd');
@@ -66,25 +66,25 @@
 		//绑定事件
 		addEvent: function(){
 			var _this = this;
-			$doc.on('click','.J_popok',function(e){
+			$doc.on('click','[aria-label=ok]',function(e){
 				if(_this.stop){
-					ol.preventDefault(e);
-					ol.stopPropagation(e);
+					online.preventDefault(e);
+					online.stopPropagation(e);
 				}
 				$.type(_this.okCallback) === 'function' && _this.okCallback.call(_this,_this.container,e);
 				if(_this.isHide){
 					_this.closePop();
 				}
-			}).on('click','.J_popcancel',function(e){
+			}).on('click','[aria-label=cancel]',function(e){
 				if(_this.stop){
-					ol.preventDefault(e);
-					ol.stopPropagation(e);
+					online.preventDefault(e);
+					online.stopPropagation(e);
 				}
 				$.type(_this.cancelCallback) === 'function' && _this.cancelCallback.call(_this,_this.container,e);
 				_this.closePop();
-			}).on('click','.J_popclose',function(e){
+			}).on('click','[aria-hidden=true]',function(e){
 				if(_this.stop){
-					ol.stopPropagation(e);
+					online.stopPropagation(e);
 				}
 				$.type(_this.closeCallback) === 'function' && _this.closeCallback.call(_this,_this.container,e);
 				_this.closePop();
