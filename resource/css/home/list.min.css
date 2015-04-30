@@ -1,5 +1,1 @@
-@charset "utf-8";/*!
- * dialog
- * 模态
- * 
- */.popup{border:1px solid #D2D2D2;background-color:#FFF}.popup .close{margin:4px 8px 0 0}.popup .hd{border-bottom:1px solid #D2D2D2;padding:5px 10px}.popup .bd{padding:10px}.popup .ft{border-top:1px solid #D2D2D2;padding:5px 10px;text-align:right}.popup .ft>a:last-child{margin-left:10px}.container-fluid{margin-top:15px}.container-fluid .table td,.container-fluid .table th{vertical-align:middle}.glyphicon{margin-right:5px}.table-hover tr td:last-child .glyphicon{visibility:hidden}.table-hover tr.active td:last-child .glyphicon,.table-hover tr:hover td:last-child .glyphicon{visibility:visible}
+@charset "utf-8";.container-fluid{margin-top:15px}.container-fluid .table td,.container-fluid .table th{vertical-align:middle}.glyphicon{margin-left:5px}.table-hover tr td:last-child .glyphicon{visibility:hidden}.table-hover tr.active td:last-child .glyphicon,.table-hover tr:hover td:last-child .glyphicon{visibility:visible}

@@ -16,20 +16,20 @@
 				<h3>后 台 登 录 系 统</h3>
 				<p>
 					<label>账户</label>
-					<input type="text" class="txt" placeholder="User" datatype="*" nullmsg="请填写账户" />
+					<input type="text" class="txt" placeholder="User" id="User" />
 				</p>
 				<p>
 					<label>密码</label>
-					<input type="password" placeholder="Password" datatype="*" nullmsg="请填写密码" />
+					<input type="password" placeholder="Password" id="Password" />
 				</p>
 				<p class="verify">
 					<span>验证码</span>
-					<input type="text" class="veri_txt" datatype="*" nullmsg="请填写验证码" />
+					<input type="text" class="veri_txt" id="Vericode" />
 					<img src="" alt="" />
 				</p>
 			</div>
 			<div class="ft">
-				<button type="submit">登录</button>
+				<button type="button">登录</button>
 			</div>
 		</form>
 	</div>
@@ -39,7 +39,6 @@
 	function loaderCallback(jsList, url){
 		return $LAB.script(jsList['jquery']).wait()
 			.script(url('mod.min.js')).wait()
-			.script(url('Validform.min.js')).wait()
 			.script(url('login.min.js'))
 	}
 	</script>

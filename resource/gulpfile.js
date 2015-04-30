@@ -33,14 +33,12 @@ gulp.task('css', function() {
 	var config = {
 		'bootstrap.css':[
 			'css/package/bootstrap-3.3.4.src.css',
-			'css/package/bootstrap-theme-3.3.4.src.css'
+			'css/package/bootstrap-theme-3.3.4.src.css',
+			'css/package/common.css'
 		],
 		'login.css':'css/package/action/login.css',
 		'home.css':'css/package/action/home.css',
-		'list.css':[
-			'css/package/util/dialog.css',
-			'css/package/action/list.css'
-		]
+		'list.css':'css/package/action/list.css'
 	};
 	for(var p in config){
 		task(config[p],p);
