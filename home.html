@@ -32,7 +32,6 @@
 	function loaderCallback(jsList, url){
 		return $LAB.script(jsList['jquery']).wait()
 			.script(url('mod.min.js')).wait()
-			.script(url('Validform.min.js')).wait()
 			.script(url('home.min.js'))
 	}
 	</script>
