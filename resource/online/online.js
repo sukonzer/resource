@@ -304,6 +304,10 @@
 				segments: a.pathname.replace(/^\//,'').split('/')
 			};
 		},
+		//是闰月
+		isLeapMonth: function(year) {
+		   return year%100==0? (year%400==0?1:0): (year%4==0?1:0);
+		},
 		//返回10位整型
 		toInt: function(str){
 			if( str === undefined || str === null ) return 0;
