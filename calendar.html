@@ -1,0 +1,485 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>日历</title>
+	<link rel="stylesheet" type="text/css" href="resource/css/home/bootstrap.min.css?releaseno=PRO_6284185028634_03" media="all" />
+	<style type="text/css">
+	ul{padding:0;margin:0;}
+	li{list-style:none;}
+	#wrap{margin:20px 0 0 20px;width:600px;padding-left:60px;}
+	#topPanel td,#calendar td{text-align:center;}
+	#topPanel td{background-color:#f7f7f7;height:39px;border:1px solid #e4e4e4;border-bottom:0;}
+	.calendarTab{font-size:12px;}
+	.calendarTab td{height:50px;padding:3px;border:1px solid #e4e4e4;}
+	.calendarTab td.optional{cursor:pointer;}
+	.calendarTab td .hot_price{color:#c83232;}
+	.calendarTab td .day{text-align:right;}
+	.calendarTab td .price{font-size:18px;}
+	.returnTab{float:left;width:60px;margin-left:-60px;}
+	.returnTab td{height:50px;padding:3px;}
+	</style>
+	</head>
+<body>
+	<div id="wrap">
+		<div id="topPanel">
+			<table width="100%">
+				<tr>
+					<td>周日</td>
+					<td>周一</td>
+					<td>周二</td>
+					<td>周三</td>
+					<td>周四</td>
+					<td>周五</td>
+					<td>周六</td>
+				</tr>
+			</table>
+		</div>
+		<div id="calendar"></div>
+	</div>
+</body>
+<!-- 页面级调用 -->
+	<script type="text/javascript">
+	function loaderCallback(jsList, url){
+		return $LAB.script(jsList['jquery']).wait()
+			.script(url('mod.min.js')).wait(function(){
+				var container = $('#calendar'),
+					calendarTmpl = $('#calendarTmpl').html();
+				var d = {
+				"RoundLowPriceRecommendFlights":{
+					"2015-08-15":
+					[{
+						"ReturnDate":"2015-08-16",
+						"price":85
+					},{
+						"ReturnDate":"2015-08-17",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-18",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-19",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-20",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-21",
+						"price":120
+					}
+					],
+					"2015-08-16":
+					[{
+						"ReturnDate":"2015-08-17",
+						"price":63
+					},{
+						"ReturnDate":"2015-08-18",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-19",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-20",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-21",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-22",
+						"price":120
+					}
+					],
+					"2015-08-17":
+					[{
+						"ReturnDate":"2015-08-18",
+						"price":77
+					},{
+						"ReturnDate":"2015-08-19",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-20",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-21",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-22",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-23",
+						"price":120
+					}
+					],
+					"2015-08-18":
+					[{
+						"ReturnDate":"2015-08-19",
+						"price":85
+					},{
+						"ReturnDate":"2015-08-20",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-21",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-22",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-23",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-24",
+						"price":120
+					}
+					],
+					"2015-08-19":
+					[{
+						"ReturnDate":"2015-08-20",
+						"price":61
+					},{
+						"ReturnDate":"2015-08-21",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-22",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-23",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-24",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-25",
+						"price":120
+					}
+					],
+					"2015-08-20":
+					[{
+						"ReturnDate":"2015-08-21",
+						"price":75
+					},{
+						"ReturnDate":"2015-08-22",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-23",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-24",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-25",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-26",
+						"price":120
+					}
+					],
+					"2015-08-21":
+					[{
+						"ReturnDate":"2015-08-22",
+						"price":59
+					},{
+						"ReturnDate":"2015-08-23",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-24",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-25",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-26",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-27",
+						"price":120
+					}
+					],
+					"2015-08-22":
+					[{
+						"ReturnDate":"2015-08-23",
+						"price":85
+					},{
+						"ReturnDate":"2015-08-24",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-25",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-26",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-27",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-28",
+						"price":120
+					}
+					],
+					"2015-08-23":
+					[{
+						"ReturnDate":"2015-08-24",
+						"price":84
+					},{
+						"ReturnDate":"2015-08-25",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-26",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-27",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-28",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-29",
+						"price":120
+					}
+					],
+					"2015-08-24":
+					[{
+						"ReturnDate":"2015-08-25",
+						"price":85
+					},{
+						"ReturnDate":"2015-08-26",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-27",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-28",
+						"price":46
+					},{
+						"ReturnDate":"2015-08-29",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-30",
+						"price":120
+					}
+					],
+					"2015-08-25":
+					[{
+						"ReturnDate":"2015-08-26",
+						"price":62
+					},{
+						"ReturnDate":"2015-08-27",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-28",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-29",
+						"price":29
+					},{
+						"ReturnDate":"2015-08-30",
+						"price":100
+					},{
+						"ReturnDate":"2015-08-31",
+						"price":120
+					}
+					],
+					"2015-08-26":
+					[{
+						"ReturnDate":"2015-08-27",
+						"price":64
+					},{
+						"ReturnDate":"2015-08-28",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-29",
+						"price":135
+					},{
+						"ReturnDate":"2015-08-30",
+						"price":98
+					},{
+						"ReturnDate":"2015-08-31",
+						"price":100
+					},{
+						"ReturnDate":"2015-09-01",
+						"price":120
+					}
+					],
+					"2015-08-27":
+					[{
+						"ReturnDate":"2015-08-28",
+						"price":79
+					},{
+						"ReturnDate":"2015-08-29",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-30",
+						"price":96
+					},{
+						"ReturnDate":"2015-08-31",
+						"price":98
+					},{
+						"ReturnDate":"2015-09-01",
+						"price":60
+					},{
+						"ReturnDate":"2015-09-02",
+						"price":120
+					}
+					],
+					"2015-08-28":
+					[{
+						"ReturnDate":"2015-08-29",
+						"price":73
+					},{
+						"ReturnDate":"2015-08-30",
+						"price":92
+					},{
+						"ReturnDate":"2015-08-31",
+						"price":96
+					},{
+						"ReturnDate":"2015-09-01",
+						"price":98
+					},{
+						"ReturnDate":"2015-09-02",
+						"price":100
+					},{
+						"ReturnDate":"2015-09-03",
+						"price":120
+					}
+					],
+					"2015-08-29":
+					[{
+						"ReturnDate":"2015-08-30",
+						"price":68
+					},{
+						"ReturnDate":"2015-08-31",
+						"price":92
+					},{
+						"ReturnDate":"2015-09-01",
+						"price":96
+					},{
+						"ReturnDate":"2015-09-02",
+						"price":98
+					},{
+						"ReturnDate":"2015-09-03",
+						"price":100
+					},{
+						"ReturnDate":"2015-09-04",
+						"price":120
+					}
+					],
+					"2015-08-30":
+					[{
+						"ReturnDate":"2015-08-31",
+						"price":85
+					},{
+						"ReturnDate":"2015-09-01",
+						"price":92
+					},{
+						"ReturnDate":"2015-09-02",
+						"price":96
+					},{
+						"ReturnDate":"2015-09-03",
+						"price":35
+					},{
+						"ReturnDate":"2015-09-04",
+						"price":100
+					},{
+						"ReturnDate":"2015-09-05",
+						"price":120
+					}
+					],
+					"2015-08-31":
+					[{
+						"ReturnDate":"2015-09-01",
+						"price":85
+					},{
+						"ReturnDate":"2015-09-02",
+						"price":92
+					},{
+						"ReturnDate":"2015-09-03",
+						"price":96
+					},{
+						"ReturnDate":"2015-09-04",
+						"price":98
+					},{
+						"ReturnDate":"2015-09-05",
+						"price":100
+					},{
+						"ReturnDate":"2015-09-06",
+						"price":120
+					}
+					]
+				}
+				};
+				var RoundLowPrice = d.RoundLowPriceRecommendFlights;
+				for(var k in RoundLowPrice){
+					ascend(RoundLowPrice[k]);
+				};
+				function ascend(arr){//按价格进行升序排序
+					arr.sort(function(a,b){
+						return a.price-b.price;
+					});
+				};
+				function getDays(nYear,nMonth){//返回某年某月的总天数
+					return [31,28+online.isLeapMonth(nYear),31,30,31,30,31,31,30,31,30,31][nMonth];
+				};
+				function getCellHtml(cellDay){//日历表格单元格的html内容
+					if(cellDay<1 || cellDay>nTotalDays || cellDay<nowDay){
+						return '<td>-</td>';
+					}
+					var date = online.toFormatString(new Date(nowYear,nowMonth,cellDay),'yyyy-MM-dd');
+					if(!(
+						RoundLowPrice[date] && 
+						RoundLowPrice[date][0] && 
+						RoundLowPrice[date][0].price
+					)){
+						return '<td class="optional"><div class="day">'+cellDay+'</div><a href="javascript:;">点击查看</a></td>';
+					}
+					returnArr.push(RoundLowPrice[date][0]);
+					return '<td class="optional"><div class="day">'+(cellDay===nowDay ? '今天':cellDay)+'</div><div class="price">'+'<dfn>&yen;</dfn>'+RoundLowPrice[date][0].price+'</div></td>';
+				};
+				var nowDate = new Date(),
+					nowYear = nowDate.getFullYear(),//当前年份
+					nowMonth = nowDate.getMonth(),//当前月份
+					nowDay = nowDate.getDate(),//当前月当天多少号
+					nTotalDays = getDays(nowYear,nowMonth),//当前月总天数
+					nMonFW = new Date(nowYear,nowMonth,1).getDay(),//当前月第一天星期几
+					tabRows = Math.ceil((nMonFW+nTotalDays)/7),//表格行数
+					tabIndex,//日历单元格索引
+					tabCellDay,//日历单元格是几号
+					tabNowHtml,//日历单元格待填充内容
+					returnArr = [],
+					returnTabTmpl = '<div class="returnTab"><table width="100%">',//返程时间表格
+					tabTmpl = '<div class="calendarTab"><table width="100%"><tr>';//日历表格
+				for(var i=0,len=tabRows;i<len;i++){
+					for(var j=0,_len=7;j<_len;j++){
+						tabIndex = i*7+j;
+						tabCellDay = tabIndex-nMonFW+1;
+						tabTmpl+=getCellHtml(tabCellDay);
+					}
+					ascend(returnArr);
+					returnTabTmpl+='<tr><td>'+(returnArr.length>0 ? returnArr[0].ReturnDate.substring(5)+'</br>'+returnArr[0].price:'')+'</td></tr>';
+					returnArr = [];
+					if(i===len-1){
+						tabTmpl+='</tr>';
+						break;
+					}
+					tabTmpl+='</tr><tr>';
+				}
+				returnTabTmpl+='</table></div>';
+				tabTmpl+='</table></div>';
+				container.html(returnTabTmpl+tabTmpl);
+			});
+	}
+	</script>
+	<!-- 页面级调用/ -->
+	<!-- 底部通用配置(可include进foot中) -->
+	<script type="text/javascript" src="resource/online/home/LAB.min.js"></script>
+	<script type="text/javascript">
+	var releaseNo = '?releaseno=PRO_6284185028634_03' + (new Date()).getDay(),
+			releaseUrl = 'resource/online/home/',
+			getUrl = function(name, charset){
+				return { src: releaseUrl + name + releaseNo, charset: charset || 'utf-8' };
+			},
+			jsList = {
+				jquery: { src: 'resource/online/home/jquery.min.js' + releaseNo, charset: 'utf-8' }
+			};
+	(typeof loaderCallback != 'undefined') && (loaderCallback(jsList, getUrl));
+	</script>
+	<!-- 底部通用配置/ -->
+</html>
