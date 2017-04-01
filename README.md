@@ -16,7 +16,7 @@ npm init
 
 4.本地安装依赖
 ```
-npm install --save-dev gulp webpack del jshint babel-core babel-loader babel-preset-env babel-preset-es2015 babel-plugin-transform-object-assign
+npm install --save-dev gulp webpack del jshint babel-core babel-loader babel-preset-env babel-preset-es2015 babel-plugin-transform-object-assign cross-env
 ```
 <!--
 安装Gulp插件

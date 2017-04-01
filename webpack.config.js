@@ -1,9 +1,9 @@
+const isPro = process.env.NODE_ENV == 'production'
 const webpack = require('webpack')
 const path = require('path')
-const IS_PRO = process.env.NODE_ENV == 'production'
-const plugins = [];
+const plugins = []
 
-if(IS_PRO){
+if(isPro){
   plugins.push(new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,
@@ -11,7 +11,7 @@ if(IS_PRO){
         warnings: false,
         drop_console: true,
         collapse_vars: true,
-        reduce_vars: true,
+        reduce_vars: true
       }
   }))
 }
@@ -21,8 +21,10 @@ module.exports = {
       main: ['./src/entry.js']
   },
   output: {
-      filename: '[name].js?[hash]',
-      path: path.resolve(__dirname+'/dist')
+      filename: '[name].js',
+      chunkFilename: '[name].js?[chunkhash:10]',
+      path: path.resolve(__dirname+'/dist'),
+      publicPath: './dist/'
   },
   module: {
     rules: [
@@ -33,7 +35,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        query: {
+        options: {
           presets: ['es2015'],
           plugins: ["transform-object-assign"]
         },
@@ -45,5 +47,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.jsx'],
     modules: [path.resolve(__dirname, 'node_modules')]
-  }
-};
+  },
+  devtool: 'source-map'
+}
