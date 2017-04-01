@@ -10,7 +10,7 @@ gulp.task('clean', cb =>{
 })
 // build
 gulp.task('build', cb =>{
-  webpack(webpackConfig, info, state =>{
+  webpack(webpackConfig, (info, state) =>{
     console.log(info)
     cb(info)
   })
