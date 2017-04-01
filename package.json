@@ -4,7 +4,7 @@
   "description": "webpack & gulp test",
   "main": "main.js",
   "scripts": {
-    "dev": "webpack",
+    "dev": "gulp",
     "pro": "cross-env NODE_ENV=production gulp"
   },
   "repository": {

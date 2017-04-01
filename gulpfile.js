@@ -11,11 +11,10 @@ gulp.task('clean', cb =>{
 // build
 gulp.task('build', cb =>{
   webpack(webpackConfig, (info, state) =>{
-    console.log(info)
     cb(info)
   })
 })
 // Default task
-gulp.task('default', ['build'], cb =>{
+gulp.task('default', ['clean', 'build'], cb =>{
   gulp.start('build')
 })
