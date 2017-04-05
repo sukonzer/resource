@@ -1,6 +1,6 @@
 [user]
-  name = q_song
-  email = q_song@Ctrip.com
+  name = sukonzer
+  email = sukonzer@gmail.com
 [mergetool "bc"]
   path = "D:/Tools/Beyond Compare 4/bcomp.exe"
 [merge]
