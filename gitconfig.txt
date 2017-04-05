@@ -1,0 +1,50 @@
+[user]
+  name = q_song
+  email = q_song@Ctrip.com
+[mergetool "bc"]
+  path = "D:/Tools/Beyond Compare 4/bcomp.exe"
+[merge]
+  tool = bc
+[difftool "bc"]
+  path = "D:/Tools/Beyond Compare 4/BCompare.exe"
+[diff]
+  tool = bc
+[difftool]
+  prompt = true
+[core]
+# editor = 'E:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin
+  editor = notepad
+  quotepath = false
+  autocrlf = false
+[gui]
+  encoding = utf-8
+[i18n]
+  commitencoding = utf-8
+# logoutputencoding = gbk
+[alias]
+  pl = pull --rebase
+  plp = pull --prune
+  rbc = rebase --continue
+  psc = "!f(){ git push origin HEAD:refs/for/$1%r=$2,topic=$3; }; f"
+  cp = cherry-pick
+  cpc = cherry-pick --continue
+  rsta = "!f(){ git stash apply stash@{$1}; }; f"
+  res = reset
+  ref = reflog
+  st = status -sb
+  co = checkout
+  br = branch
+  mg = merge
+  cmm = "!f(){ git add .;git commit; }; f"
+  cmma = commit --amend
+  ds = diff --staged
+  dt = difftool
+  mt = mergetool
+  last = log -1 HEAD
+  ls = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%cn]\" --decorate --date=format:%c
+  lg = log --pretty=format:\"%C(red)%h %C(yellow)%d %C(reset)%s %C(blue)<%cn> %C(green)%ad\" --topo-order --graph --date=format:%c
+  
+[push]
+  default = simple
+[url "https://${GITHUB_TOKEN}@github.com/"]
+	insteadOf = git@github.com:
